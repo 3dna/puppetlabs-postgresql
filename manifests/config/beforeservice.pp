@@ -21,6 +21,7 @@
 #                                    firewall rule (currently, it simply opens up the postgres port to all TCP connections).
 #   [*manage_pg_hba_conf*]      - boolean indicating whether or not the module manages pg_hba.conf file.
 #   [*persist_firewall_command*] - Command to persist firewall connections.
+#   [*shared_buffers*]          - shared_buffers setting in postgresql.conf
 #
 # Actions:
 #
@@ -48,6 +49,11 @@ class postgresql::config::beforeservice(
   $manage_redhat_firewall     = $postgresql::params::manage_redhat_firewall,
   $manage_pg_hba_conf         = $postgresql::params::manage_pg_hba_conf,
   $persist_firewall_command   = $postgresql::params::persist_firewall_command,
+  $shared_buffers             = undef,
+  $archive_mode               = undef,
+  $archive_command            = undef,
+  $archive_timeout            = undef,
+  $shared_preload_libraries   = undef,
 ) inherits postgresql::params {
 
 
@@ -126,6 +132,52 @@ class postgresql::config::beforeservice(
     line        => "listen_addresses = '${listen_addresses}'",
     notify      => Service['postgresqld'],
   }
+
+  if ($shared_buffers) {
+    file_line { 'postgresql.conf#shared_buffers':
+      path   => $postgresql_conf_path,
+      match  => '^shared_buffers\s*=.*$',
+      line   => "shared_buffers = ${shared_buffers}",
+      notify => Service['postgresqld']
+    }
+  }
+
+  if ($archive_mode) {
+    file_line { 'postgresql.conf#archive_mode':
+      path   => $postgresql_conf_path,
+      match  => '^archive_mode\s*=.*$',
+      line   => "archive_mode = ${archive_mode}",
+      notify => Service['postgresqld']
+    }
+  }
+
+  if ($archive_command) {
+    file_line { 'postgresql.conf#archive_command':
+      path   => $postgresql_conf_path,
+      match  => '^archive_command\s*=.*$',
+      line   => "archive_command = '${archive_command}'",
+      notify => Service['postgresqld']
+    }
+  }
+
+  if ($archive_timeout) {
+    file_line { 'postgresql.conf#archive_timeout':
+      path   => $postgresql_conf_path,
+      match  => '^archive_timeout\s*=.*$',
+      line   => "archive_timeout = ${archive_timeout}",
+      notify => Service['postgresqld']
+    }
+  }
+
+  if ($shared_preload_libraries) {
+    file_line { 'postgresql.conf#shared_preload_libraries':
+      path   => $postgresql_conf_path,
+      match  => '^shared_preload_libraries\s*=.*$',
+      line   => "shared_preload_libraries = '${shared_preload_libraries}'",
+      notify => Service['postgresqld']
+    }
+  }
+
 
   # Here we are adding an 'include' line so that users have the option of
   # managing their own settings in a second conf file. This only works for

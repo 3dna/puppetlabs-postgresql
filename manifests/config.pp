@@ -43,7 +43,12 @@ class postgresql::config(
   $pg_hba_conf_path           = $postgresql::params::pg_hba_conf_path,
   $postgresql_conf_path       = $postgresql::params::postgresql_conf_path,
   $manage_redhat_firewall     = $postgresql::params::manage_redhat_firewall,
-  $manage_pg_hba_conf         = $postgresql::params::manage_pg_hba_conf
+  $manage_pg_hba_conf         = $postgresql::params::manage_pg_hba_conf,
+  $shared_buffers             = undef,
+  $archive_mode               = undef,
+  $archive_command            = undef,
+  $archive_timeout            = undef,
+  $shared_preload_libraries   = undef,
 ) inherits postgresql::params {
 
   # Basically, all this class needs to handle is passing parameters on
