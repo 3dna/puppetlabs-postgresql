@@ -54,6 +54,32 @@ class postgresql::config::beforeservice(
   $archive_command            = undef,
   $archive_timeout            = undef,
   $shared_preload_libraries   = undef,
+  $work_mem                   = undef,
+  $maintenance_work_mem       = undef,
+  $max_stack_depth            = undef,
+  $hot_standby                = undef,
+  $wal_level                  = undef,
+  $max_wal_senders            = undef,
+  $wal_keep_segments          = undef,
+  $checkpoint_segments        = undef,
+  $checkpoint_timeout         = undef,
+  $checkpoint_completion_target = undef,
+  $effective_cache_size       = undef,
+  $log_destination            = undef,
+  $logging_collector          = undef,
+  $log_directory              = undef,
+  $log_filename               = undef,
+  $log_min_duration_statement = undef,
+  $log_checkpoints            = undef,
+  $log_connections            = undef,
+  $log_disconnections         = undef,
+  $log_line_prefix            = undef,
+  $log_lock_waits             = undef,
+  $log_temp_files             = undef,
+  $track_activities           = undef,
+  $track_counts               = undef,
+  $max_connections            = undef,
+  $auto_explain_log_min_duration = undef,
 ) inherits postgresql::params {
 
 
@@ -178,6 +204,239 @@ class postgresql::config::beforeservice(
     }
   }
 
+  if ($work_mem) {
+    file_line { 'postgresql.conf#work_mem':
+      path   => $postgresql_conf_path,
+      match  => '^work_mem\s*=.*$',
+      line   => "work_mem = ${work_mem}",
+      notify => Service['postgresqld']
+    }
+  }
+
+  if ($maintenance_work_mem) {
+    file_line { 'postgresql.conf#maintenance_work_mem':
+      path   => $postgresql_conf_path,
+      match  => '^maintenance_work_mem\s*=.*$',
+      line   => "maintenance_work_mem = ${maintenance_work_mem}",
+      notify => Service['postgresqld']
+    }
+  }
+
+  if ($max_stack_depth) {
+    file_line { 'postgresql.conf#max_stack_depth':
+      path   => $postgresql_conf_path,
+      match  => '^max_stack_depth\s*=.*$',
+      line   => "max_stack_depth = ${max_stack_depth}",
+      notify => Service['postgresqld']
+    }
+  }
+
+  if ($hot_standby) {
+    file_line { 'postgresql.conf#hot_standby':
+      path   => $postgresql_conf_path,
+      match  => '^hot_standby\s*=.*$',
+      line   => "hot_standby = ${hot_standby}",
+      notify => Service['postgresqld']
+    }
+  }
+
+  if ($wal_level) {
+    file_line { 'postgresql.conf#wal_level':
+      path   => $postgresql_conf_path,
+      match  => '^wal_level\s*=.*$',
+      line   => "wal_level = ${wal_level}",
+      notify => Service['postgresqld']
+    }
+  }
+
+  if ($max_wal_senders) {
+    file_line { 'postgresql.conf#max_wal_senders':
+      path   => $postgresql_conf_path,
+      match  => '^max_wal_senders\s*=.*$',
+      line   => "max_wal_senders = ${max_wal_senders}",
+      notify => Service['postgresqld']
+    }
+  }
+
+  if ($wal_keep_segments) {
+    file_line { 'postgresql.conf#wal_keep_segments':
+      path   => $postgresql_conf_path,
+      match  => '^wal_keep_segments\s*=.*$',
+      line   => "wal_keep_segments = ${wal_keep_segments}",
+      notify => Service['postgresqld']
+    }
+  }
+
+  if ($checkpoint_segments) {
+    file_line { 'postgresql.conf#checkpoint_segments':
+      path   => $postgresql_conf_path,
+      match  => '^checkpoint_segments\s*=.*$',
+      line   => "checkpoint_segments = ${checkpoint_segments}",
+      notify => Service['postgresqld']
+    }
+  }
+
+  if ($checkpoint_timeout) {
+    file_line { 'postgresql.conf#checkpoint_timeout':
+      path   => $postgresql_conf_path,
+      match  => '^checkpoint_timeout\s*=.*$',
+      line   => "checkpoint_timeout = ${checkpoint_timeout}",
+      notify => Service['postgresqld']
+    }
+  }
+
+  if ($checkpoint_completion_target) {
+    file_line { 'postgresql.conf#checkpoint_completion_target':
+      path   => $postgresql_conf_path,
+      match  => '^checkpoint_completion_target\s*=.*$',
+      line   => "checkpoint_completion_target = ${checkpoint_completion_target}",
+      notify => Service['postgresqld']
+    }
+  }
+
+  if ($effective_cache_size) {
+    file_line { 'postgresql.conf#effective_cache_size':
+      path   => $postgresql_conf_path,
+      match  => '^effective_cache_size\s*=.*$',
+      line   => "effective_cache_size = ${effective_cache_size}",
+      notify => Service['postgresqld']
+    }
+  }
+
+  if ($log_destination) {
+    file_line { 'postgresql.conf#log_destination':
+      path   => $postgresql_conf_path,
+      match  => '^log_destination\s*=.*$',
+      line   => "log_destination = '${log_destination}'",
+      notify => Service['postgresqld']
+    }
+  }
+
+  if ($logging_collector) {
+    file_line { 'postgresql.conf#logging_collector':
+      path   => $postgresql_conf_path,
+      match  => '^logging_collector\s*=.*$',
+      line   => "logging_collector = ${logging_collector}",
+      notify => Service['postgresqld']
+    }
+  }
+
+  if ($log_directory) {
+    file_line { 'postgresql.conf#log_directory':
+      path   => $postgresql_conf_path,
+      match  => '^log_directory\s*=.*$',
+      line   => "log_directory = '${log_directory}'",
+      notify => Service['postgresqld']
+    }
+  }
+
+  if ($log_filename) {
+    file_line { 'postgresql.conf#log_filename':
+      path   => $postgresql_conf_path,
+      match  => '^log_filename\s*=.*$',
+      line   => "log_filename = '${log_filename}'",
+      notify => Service['postgresqld']
+    }
+  }
+
+  if ($log_min_duration_statements) {
+    file_line { 'postgresql.conf#log_min_duration_statements':
+      path   => $postgresql_conf_path,
+      match  => '^log_min_duration_statements\s*=.*$',
+      line   => "log_min_duration_statements = ${log_min_duration_statements}",
+      notify => Service['postgresqld']
+    }
+  }
+
+  if ($log_checkpoints) {
+    file_line { 'postgresql.conf#log_checkpoints':
+      path   => $postgresql_conf_path,
+      match  => '^log_checkpoints\s*=.*$',
+      line   => "log_checkpoints = ${log_checkpoints}",
+      notify => Service['postgresqld']
+    }
+  }
+
+  if ($log_connections) {
+    file_line { 'postgresql.conf#log_connections':
+      path   => $postgresql_conf_path,
+      match  => '^log_connections\s*=.*$',
+      line   => "log_connections = ${log_connections}",
+      notify => Service['postgresqld']
+    }
+  }
+
+  if ($log_disconnections) {
+    file_line { 'postgresql.conf#log_disconnections':
+      path   => $postgresql_conf_path,
+      match  => '^log_disconnections\s*=.*$',
+      line   => "log_disconnections = ${log_disconnections}",
+      notify => Service['postgresqld']
+    }
+  }
+
+  if ($log_line_prefix) {
+    file_line { 'postgresql.conf#log_line_prefix':
+      path   => $postgresql_conf_path,
+      match  => '^log_line_prefix\s*=.*$',
+      line   => "log_line_prefix = '${log_line_prefix}'",
+      notify => Service['postgresqld']
+    }
+  }
+
+  if ($log_lock_waits) {
+    file_line { 'postgresql.conf#log_lock_waits':
+      path   => $postgresql_conf_path,
+      match  => '^log_lock_waits\s*=.*$',
+      line   => "log_lock_waits = ${log_lock_waits}",
+      notify => Service['postgresqld']
+    }
+  }
+
+  if ($log_temp_files) {
+    file_line { 'postgresql.conf#log_temp_files':
+      path   => $postgresql_conf_path,
+      match  => '^log_temp_files\s*=.*$',
+      line   => "log_temp_files = ${log_temp_files}",
+      notify => Service['postgresqld']
+    }
+  }
+
+  if ($track_activities) {
+    file_line { 'postgresql.conf#track_activities':
+      path   => $postgresql_conf_path,
+      match  => '^track_activities\s*=.*$',
+      line   => "track_activities = ${track_activities}",
+      notify => Service['postgresqld']
+    }
+  }
+
+  if ($track_counts) {
+    file_line { 'postgresql.conf#track_counts':
+      path   => $postgresql_conf_path,
+      match  => '^track_counts\s*=.*$',
+      line   => "track_counts = ${track_counts}",
+      notify => Service['postgresqld']
+    }
+  }
+
+  if ($max_connections) {
+    file_line { 'postgresql.conf#max_connections':
+      path   => $postgresql_conf_path,
+      match  => '^max_connections\s*=.*$',
+      line   => "max_connections = ${max_connections}",
+      notify => Service['postgresqld']
+    }
+  }
+
+  if ($auto_explain_log_min_duration) {
+    file_line { 'postgresql.conf#auto_explain_log_min_duration':
+      path   => $postgresql_conf_path,
+      match  => '^auto_explain_log_min_duration\s*=.*$',
+      line   => "auto_explain.log_min_duration = ${auto_explain_log_min_duration}",
+      notify => Service['postgresqld']
+    }
+  }
 
   # Here we are adding an 'include' line so that users have the option of
   # managing their own settings in a second conf file. This only works for
