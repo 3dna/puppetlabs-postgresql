@@ -65,6 +65,11 @@ class postgresql::config(
     postgresql_conf_path       => $postgresql_conf_path,
     manage_redhat_firewall     => $manage_redhat_firewall,
     manage_pg_hba_conf         => $manage_pg_hba_conf,
+    shared_buffers             => $shared_buffers,
+    archive_mode               => $archive_mode,
+    archive_command            => $archive_command,
+    archive_timeout            => $archive_timeout,
+    shared_preload_libraries   => $shared_preload_libraries,
   }
 
   class { 'postgresql::config::afterservice':
