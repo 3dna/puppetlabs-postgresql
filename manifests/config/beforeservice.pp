@@ -432,7 +432,7 @@ class postgresql::config::beforeservice(
   if ($auto_explain_log_min_duration) {
     file_line { 'postgresql.conf#auto_explain_log_min_duration':
       path   => $postgresql_conf_path,
-      match  => '^auto_explain_log_min_duration\s*=.*$',
+      match  => '^auto_explain\.log_min_duration\s*=.*$',
       line   => "auto_explain.log_min_duration = ${auto_explain_log_min_duration}",
       notify => Service['postgresqld']
     }
