@@ -16,7 +16,7 @@
 #
 #   class { 'postgresql::postgis': }
 #
-class postgresql::contrib (
+class postgresql::postgis (
   $package_name   = $postgresql::params::postgis_package_name,
   $package_ensure = 'present',
   $scripts_package_name = $postgresql::params::postgis_scripts_package_name,
