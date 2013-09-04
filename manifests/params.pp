@@ -39,6 +39,8 @@ class postgresql::params(
   $custom_client_package_name  = undef,
   $custom_server_package_name  = undef,
   $custom_contrib_package_name = undef,
+  $custom_postgis_package_name = undef,
+  $custom_postgis_scrits_package_name = undef,
   $custom_devel_package_name   = undef,
   $custom_java_package_name    = undef,
   $custom_plperl_package_name  = undef,
@@ -114,6 +116,8 @@ class postgresql::params(
         $client_package_name    = pick($custom_client_package_name, 'postgresql')
         $server_package_name    = pick($custom_server_package_name, 'postgresql-server')
         $contrib_package_name   = pick($custom_contrib_package_name,'postgresql-contrib')
+        #postgis_package_name    = pick($custom_postgis_package_name, 'FIXME: postgresql-postgis')
+        #postgis_scripts_package_name    = pick($custom_postgis_scripts_package_name, 'FIXME: postgresql-postgis-scripts')
         $devel_package_name     = pick($custom_devel_package_name, 'postgresql-devel')
         $java_package_name      = pick($custom_java_package_name, 'postgresql-jdbc')
         $plperl_package_name    = pick($custom_plperl_package_name, 'postgresql-plperl')
@@ -127,6 +131,8 @@ class postgresql::params(
         $client_package_name    = pick($custom_client_package_name, "postgresql${package_version}")
         $server_package_name    = pick($custom_server_package_name, "postgresql${package_version}-server")
         $contrib_package_name   = pick($custom_contrib_package_name,"postgresql${package_version}-contrib")
+        #$postgis_package_name   = pick($custom_postgis_package_name,"FIXME: postgresql${package_version}-postgis")
+        #$postgis_scripts_package_name   = pick($custom_postgis_scripts_package_name,"FIXME: postgresql${package_version}-postgis-scripts")
         $devel_package_name     = pick($custom_devel_package_name, "postgresql${package_version}-devel")
         $java_package_name      = pick($custom_java_package_name, "postgresql${package_version}-jdbc")
         $plperl_package_name    = pick($custom_plperl_package_name, "postgresql${package_version}-plperl")
@@ -169,6 +175,8 @@ class postgresql::params(
       $client_package_name  = pick($custom_client_package_name, "postgresql-client-${version}")
       $server_package_name  = pick($custom_server_package_name, "postgresql-${version}")
       $contrib_package_name = pick($custom_contrib_package_name, "postgresql-contrib-${version}")
+      $postgis_package_name = pick($custom_postgis_package_name, "postgresql-${version}-postgis-2.0")
+      $postgis_scripts_package_name = pick($custom_postgis_scripts_package_name, "postgresql-${version}-postgis-2.0-scripts")
       $devel_package_name   = pick($custom_devel_package_name, 'libpq-dev')
       $java_package_name    = pick($custom_java_package_name, 'libpostgresql-jdbc-java')
       $bindir               = pick($custom_bindir, "/usr/lib/postgresql/${version}/bin")
@@ -211,6 +219,8 @@ class postgresql::params(
 
 
       $contrib_package_name = $custom_contrib_package_name
+      $postgis_package_name = $custom_postgis_package_name
+      $postgis_scripts_package_name = $custom_postgis_scripts_package_name
       $devel_package_name   = $custom_devel_package_name
       $java_package_name    = $custom_java_package_name
 
