@@ -37,6 +37,7 @@
 define postgresql::db (
   $user,
   $password,
+  $superuser  = undef,
   $charset    = $postgresql::params::charset,
   $locale     = $postgresql::params::locale,
   $grant      = 'ALL',
@@ -59,10 +60,11 @@ define postgresql::db (
   if ! defined(Postgresql::Database_user[$user]) {
     postgresql::database_user { $user:
       # TODO: ensure is not yet supported
-      #ensure         => present,
-      password_hash   => $password,
-      #provider       => 'postgresql',
-      require         => Postgresql::Database[$name],
+      #ensure       => present,
+      password_hash => $password,
+      superuser     => $superuser,
+      #provider     => 'postgresql',
+      require       => Postgresql::Database[$name],
     }
   }
 
